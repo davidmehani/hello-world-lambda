@@ -1,0 +1,21 @@
+{
+  "name": "lambdas",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rm -rf dist *.zip",
+    "build": "npm run clean && esbuild src/hello-function/index.ts --bundle --platform=node --target=node20 --outfile=dist/index.js --minify --sourcemap --external:aws-sdk",
+    "zip": "cd dist && zip -r ../hello-function.zip .",
+    "deploy": "npm run build && npm run zip"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.600.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.157",
+    "@types/node": "^24.9.1",
+    "esbuild": "^0.25.11",
+    "typescript": "^5.3.0"
+  }
+}
